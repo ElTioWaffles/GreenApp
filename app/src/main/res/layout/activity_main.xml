@@ -32,7 +32,7 @@
         android:padding="16dp"
         android:text="@string/opc_sensores"
         android:textColor="@color/buttonTextColorDark"
-        android:backgroundTint="@color/buttonColorDark"
+        android:backgroundTint="@color/buttonColorGreen"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -45,7 +45,7 @@
         android:padding="16dp"
         android:text="@string/gestor_ubi"
         android:textColor="@color/buttonTextColorDark"
-        android:backgroundTint="@color/buttonColorDark"
+        android:backgroundTint="@color/buttonColorGreen"
         app:layout_constraintTop_toBottomOf="@+id/gestorButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -58,7 +58,7 @@
         android:padding="16dp"
         android:text="@string/registros"
         android:textColor="@color/buttonTextColorDark"
-        android:backgroundTint="@color/buttonColorDark"
+        android:backgroundTint="@color/buttonColorGreen"
         app:layout_constraintTop_toBottomOf="@+id/gestorUbiButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

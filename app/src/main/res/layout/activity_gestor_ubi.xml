@@ -61,7 +61,7 @@
         android:textColor="@color/buttonTextColorDark"
         android:layout_margin="8dp"
         android:padding="16sp"
-        android:backgroundTint="@color/buttonColorDark"
+        android:backgroundTint="@color/buttonColorGreen"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descripc" />
 
