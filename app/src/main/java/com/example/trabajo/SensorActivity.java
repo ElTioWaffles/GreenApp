@@ -2,7 +2,6 @@ package com.example.trabajo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,44 +19,43 @@ public class SensorActivity extends AppCompatActivity {
 
     private Spinner spinnerUbicacion, spinnerTipoSensor;
     private EditText nombreEditText, descripcionEditText, idealEditText;
-    private ArrayAdapter<String> ubicacionAdapter;
+    private ArrayAdapter<String> ubicacionAdapter, tipoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
 
+        // Inicialización de vistas
         spinnerTipoSensor = findViewById(R.id.SpinnerSensor);
         spinnerUbicacion = findViewById(R.id.UbiSensor);
         nombreEditText = findViewById(R.id.sensores);
         descripcionEditText = findViewById(R.id.modeloSensorEditText);
         idealEditText = findViewById(R.id.campoIdealEditText);
 
-        List<String> tiposSensor = Repositorio.getInstance().obtenerTiposSensor();
-        List<String> ubicaciones = Repositorio.getInstance().obtenerUbicaciones();
+        // Configuración de Spinners
+        configurarSpinners();
 
-        ArrayAdapter<String> tipoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tiposSensor);
-        tipoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerTipoSensor.setAdapter(tipoAdapter);
-
-        actualizarSpinnerUbicaciones();
-
+        // Configuración de botones
         Button verSensoresButton = findViewById(R.id.verSensoresButton);
-        verSensoresButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SensorActivity.this, recyclerSensor.class);
-                startActivity(intent);
-            }
+        verSensoresButton.setOnClickListener(v -> {
+            Intent intent = new Intent(SensorActivity.this, recyclerSensor.class);
+            startActivity(intent);
         });
 
         Button ingresarSensorButton = findViewById(R.id.ingresarSensorButton);
-        ingresarSensorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                agregarSensor();
-            }
-        });
+        ingresarSensorButton.setOnClickListener(v -> agregarSensor());
+    }
+
+    private void configurarSpinners() {
+        // Configuración de spinnerTipoSensor
+        List<String> tiposSensor = Repositorio.getInstance().obtenerTiposSensor();
+        tipoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tiposSensor);
+        tipoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTipoSensor.setAdapter(tipoAdapter);
+
+        // Configuración de spinnerUbicacion
+        actualizarSpinnerUbicaciones();
     }
 
     private void agregarSensor() {
@@ -65,22 +63,21 @@ public class SensorActivity extends AppCompatActivity {
         String descripcion = descripcionEditText.getText().toString().trim();
         String idealStr = idealEditText.getText().toString().trim();
 
-        if (validarCampoIdeal(idealStr) && validarNombre(nombre) && validarDescripcion(descripcion)) {
-            float ideal = Float.parseFloat(idealStr);
+        if (!validarCampos(nombre, descripcion, idealStr)) return;
 
-            Sensor nuevoSensor = new Sensor(nombre, descripcion, ideal);
-            Repositorio.getInstance().agregarSensor(nuevoSensor);
+        // Crear y agregar el nuevo sensor al repositorio
+        float ideal = Float.parseFloat(idealStr);
+        Sensor nuevoSensor = new Sensor(nombre, descripcion, ideal);
+        Repositorio.getInstance().agregarSensor(nuevoSensor);
 
-            Toast.makeText(SensorActivity.this, "Sensor agregado correctamente", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sensor agregado correctamente", Toast.LENGTH_SHORT).show();
 
-            nombreEditText.setText("");
-            descripcionEditText.setText("");
-            idealEditText.setText("");
-        }
+        // Limpiar campos
+        limpiarCampos();
     }
 
     private void actualizarSpinnerUbicaciones() {
-        List<String> ubicaciones = Repositorio.getInstance().obtenerUbicaciones();
+        List<String> ubicaciones = Repositorio.getInstance().obtenerNombresUbicaciones();
         ubicacionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ubicaciones);
         ubicacionAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerUbicacion.setAdapter(ubicacionAdapter);
@@ -92,17 +89,22 @@ public class SensorActivity extends AppCompatActivity {
         actualizarSpinnerUbicaciones();
     }
 
-    // Método para validar que el campo ideal sea un número positivo y no solo espacios en blanco
-    private boolean validarCampoIdeal(String campoIdeal) {
-        if (campoIdeal.isEmpty()) {
-            Toast.makeText(this, "El valor ideal no puede estar vacío o solo contener espacios", Toast.LENGTH_SHORT).show();
+    // Método para validar los campos de entrada
+    private boolean validarCampos(String nombre, String descripcion, String idealStr) {
+        if (nombre.isEmpty() || nombre.length() < 5 || nombre.length() > 15 || nombre.contains(" ")) {
+            Toast.makeText(this, "El nombre es obligatorio y debe tener entre 5 y 15 caracteres sin espacios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (descripcion.length() > 30) {
+            Toast.makeText(this, "La descripción debe tener un máximo de 30 caracteres", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (idealStr.isEmpty()) {
+            Toast.makeText(this, "El valor ideal no puede estar vacío", Toast.LENGTH_SHORT).show();
             return false;
         }
         try {
-            float valor = Float.parseFloat(campoIdeal);
-            if (valor > 0) {
-                return true;
-            } else {
+            if (Float.parseFloat(idealStr) <= 0) {
                 Toast.makeText(this, "El valor ideal debe ser un número positivo", Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -110,29 +112,13 @@ public class SensorActivity extends AppCompatActivity {
             Toast.makeText(this, "El valor ideal debe ser un número", Toast.LENGTH_SHORT).show();
             return false;
         }
-    }
-
-    // Método para validar que el nombre no esté vacío, tenga entre 5 y 15 caracteres y no contenga solo espacios en blanco
-    private boolean validarNombre(String nombre) {
-        if (nombre.isEmpty()) {
-            Toast.makeText(this, "El nombre es obligatorio y no puede estar vacío o solo contener espacios", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (nombre.length() < 5 || nombre.length() > 15) {
-            Toast.makeText(this, "El nombre debe tener entre 5 y 15 caracteres", Toast.LENGTH_SHORT).show();
-            return false;
-        }
         return true;
     }
 
-    // Método para validar que la descripción no exceda los 30 caracteres y no contenga solo espacios en blanco
-    private boolean validarDescripcion(String descripcion) {
-        if (descripcion != null && descripcion.length() > 30) {
-            Toast.makeText(this, "La descripción debe tener un máximo de 30 caracteres", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
+    // Método para limpiar los campos de entrada después de agregar un sensor
+    private void limpiarCampos() {
+        nombreEditText.setText("");
+        descripcionEditText.setText("");
+        idealEditText.setText("");
     }
 }
-
-
-

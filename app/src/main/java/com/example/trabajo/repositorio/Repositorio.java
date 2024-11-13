@@ -51,12 +51,17 @@ public class Repositorio {
     }
 
     // Método para obtener los nombres de ubicaciones en una lista de String para el Spinner
-    public List<String> obtenerUbicaciones() {
+    public List<String> obtenerNombresUbicaciones() {
         List<String> nombresUbicaciones = new ArrayList<>();
         for (Ubicacion ubicacion : listaUbicaciones) {
             nombresUbicaciones.add(ubicacion.getNombre());
         }
         return nombresUbicaciones;
+    }
+
+    // Método para obtener la lista completa de ubicaciones como List<Ubicacion>
+    public List<Ubicacion> obtenerListaUbicaciones() {
+        return listaUbicaciones;
     }
 
     // Método para agregar una nueva ubicación si no existe ya en la lista
@@ -79,3 +84,4 @@ public class Repositorio {
         return listaSensores;
     }
 }
+
