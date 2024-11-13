@@ -27,25 +27,21 @@ public class SensorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
 
-        // Referencia a los Spinners y campos de texto
         spinnerTipoSensor = findViewById(R.id.SpinnerSensor);
         spinnerUbicacion = findViewById(R.id.UbiSensor);
         nombreEditText = findViewById(R.id.sensores);
         descripcionEditText = findViewById(R.id.modeloSensorEditText);
         idealEditText = findViewById(R.id.campoIdealEditText);
 
-        // Obtener datos del repositorio
         List<String> tiposSensor = Repositorio.getInstance().obtenerTiposSensor();
         List<String> ubicaciones = Repositorio.getInstance().obtenerUbicaciones();
 
-        // Configurar adaptadores para los Spinners
         ArrayAdapter<String> tipoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tiposSensor);
         tipoAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerTipoSensor.setAdapter(tipoAdapter);
 
         actualizarSpinnerUbicaciones();
 
-        // Configuración del botón para abrir la lista de sensores
         Button verSensoresButton = findViewById(R.id.verSensoresButton);
         verSensoresButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +51,6 @@ public class SensorActivity extends AppCompatActivity {
             }
         });
 
-        // Configuración del botón "Ingresar Sensor" para validar y procesar los datos
         Button ingresarSensorButton = findViewById(R.id.ingresarSensorButton);
         ingresarSensorButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,11 +60,10 @@ public class SensorActivity extends AppCompatActivity {
         });
     }
 
-    // Método para agregar un sensor al repositorio
     private void agregarSensor() {
-        String nombre = nombreEditText.getText().toString();
-        String descripcion = descripcionEditText.getText().toString();
-        String idealStr = idealEditText.getText().toString();
+        String nombre = nombreEditText.getText().toString().trim();
+        String descripcion = descripcionEditText.getText().toString().trim();
+        String idealStr = idealEditText.getText().toString().trim();
 
         if (validarCampoIdeal(idealStr) && validarNombre(nombre) && validarDescripcion(descripcion)) {
             float ideal = Float.parseFloat(idealStr);
@@ -79,14 +73,12 @@ public class SensorActivity extends AppCompatActivity {
 
             Toast.makeText(SensorActivity.this, "Sensor agregado correctamente", Toast.LENGTH_SHORT).show();
 
-            // Limpiar los campos después de agregar el sensor
             nombreEditText.setText("");
             descripcionEditText.setText("");
             idealEditText.setText("");
         }
     }
 
-    // Método para actualizar el Spinner de ubicaciones
     private void actualizarSpinnerUbicaciones() {
         List<String> ubicaciones = Repositorio.getInstance().obtenerUbicaciones();
         ubicacionAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, ubicaciones);
@@ -94,15 +86,18 @@ public class SensorActivity extends AppCompatActivity {
         spinnerUbicacion.setAdapter(ubicacionAdapter);
     }
 
-    // Sobrescribir onResume para actualizar las ubicaciones cuando se regrese a SensorActivity
     @Override
     protected void onResume() {
         super.onResume();
         actualizarSpinnerUbicaciones();
     }
 
-    // Método para validar que el campo ideal sea un valor positivo
+    // Método para validar que el campo ideal sea un número positivo y no solo espacios en blanco
     private boolean validarCampoIdeal(String campoIdeal) {
+        if (campoIdeal.isEmpty()) {
+            Toast.makeText(this, "El valor ideal no puede estar vacío o solo contener espacios", Toast.LENGTH_SHORT).show();
+            return false;
+        }
         try {
             float valor = Float.parseFloat(campoIdeal);
             if (valor > 0) {
@@ -117,10 +112,10 @@ public class SensorActivity extends AppCompatActivity {
         }
     }
 
-    // Método para validar que el nombre es obligatorio y tiene entre 5 y 15 caracteres
+    // Método para validar que el nombre no esté vacío, tenga entre 5 y 15 caracteres y no contenga solo espacios en blanco
     private boolean validarNombre(String nombre) {
-        if (nombre == null || nombre.isEmpty()) {
-            Toast.makeText(this, "El nombre es obligatorio", Toast.LENGTH_SHORT).show();
+        if (nombre.isEmpty()) {
+            Toast.makeText(this, "El nombre es obligatorio y no puede estar vacío o solo contener espacios", Toast.LENGTH_SHORT).show();
             return false;
         } else if (nombre.length() < 5 || nombre.length() > 15) {
             Toast.makeText(this, "El nombre debe tener entre 5 y 15 caracteres", Toast.LENGTH_SHORT).show();
@@ -129,7 +124,7 @@ public class SensorActivity extends AppCompatActivity {
         return true;
     }
 
-    // Método para validar que la descripción es opcional pero no debe exceder los 30 caracteres
+    // Método para validar que la descripción no exceda los 30 caracteres y no contenga solo espacios en blanco
     private boolean validarDescripcion(String descripcion) {
         if (descripcion != null && descripcion.length() > 30) {
             Toast.makeText(this, "La descripción debe tener un máximo de 30 caracteres", Toast.LENGTH_SHORT).show();
@@ -138,5 +133,6 @@ public class SensorActivity extends AppCompatActivity {
         return true;
     }
 }
+
 
 

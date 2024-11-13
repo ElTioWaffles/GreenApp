@@ -52,6 +52,9 @@ public class gestor_ubi extends AppCompatActivity {
         } else if (nombre.length() < 5 || nombre.length() > 15) {
             Toast.makeText(this, "El nombre debe tener entre 5 y 15 caracteres", Toast.LENGTH_SHORT).show();
             return;
+        } else if (nombre.contains(" ")) {
+            Toast.makeText(this, "El nombre no debe contener espacios", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         // Validación de la descripción
