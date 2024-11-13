@@ -36,6 +36,9 @@
 
     <!-- colors.xml -->
     <color name="inputBackgroundColorDark">#1E1E1E</color> <!-- Fondo oscuro para EditText y Spinners -->
+    <color name="itemBackgroundColorDark">#1E1E1E</color> <!-- Color de fondo para los elementos de RecyclerView -->
+    <color name="itemBorder">#3E3E3E</color> <!-- Borde para los elementos del RecyclerView -->
+
 
 
 </resources>

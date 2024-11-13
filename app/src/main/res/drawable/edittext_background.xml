@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Estado cuando el campo está en foco (seleccionado) -->
+    <item android:state_focused="true">
+        <shape>
+            <solid android:color="#2E2E2E"/> <!-- Fondo más claro cuando está en foco -->
+            <corners android:radius="8dp" />
+            <stroke android:width="2dp" android:color="#5E5E5E" /> <!-- Borde más claro -->
+        </shape>
+    </item>
 
-    <shape xmlns:android="http://schemas.android.com/apk/res/android">
-        <solid android:color="#1E1E1E" /> <!-- Fondo ligeramente más claro que el fondo principal -->
-        <corners android:radius="8dp" /> <!-- Bordes redondeados -->
-        <stroke android:width="1dp" android:color="#3E3E3E" /> <!-- Borde gris claro -->
-        <padding android:left="8dp" android:right="8dp" android:top="8dp" android:bottom="8dp" />
-    </shape>
-
+    <item>
+        <shape>
+            <solid android:color="#1E1E1E"/> <!-- Fondo oscuro para el estado normal -->
+            <corners android:radius="8dp" />
+            <stroke android:width="1dp" android:color="#3E3E3E" /> <!-- Borde gris oscuro -->
+        </shape>
+    </item>
 </selector>
