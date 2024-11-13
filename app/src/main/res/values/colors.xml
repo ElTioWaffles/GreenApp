@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores básicos -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores para fondos -->
+    <color name="backgroundColor">#FFFFFF</color> <!-- Blanco -->
+    <color name="secondaryBackground">#F1F1F1</color> <!-- Gris claro para fondos secundarios -->
+
+    <!-- Colores para texto -->
+    <color name="textColorPrimary">#212121</color> <!-- Texto principal (gris oscuro) -->
+    <color name="textColorSecondary">#757575</color> <!-- Texto secundario (gris claro) -->
+
+    <!-- Colores de botones -->
+    <color name="buttonColor">#6200EE</color> <!-- Color primario para botones (Azul/púrpura) -->
+    <color name="buttonTextColor">#FFFFFFFF</color> <!-- Color del texto del botón (blanco) -->
+
+    <!-- Colores de acento -->
+    <color name="colorAccent">#03DAC5</color> <!-- Color de acento (Turquesa) -->
+
+    <!-- Colores de estado -->
+    <color name="colorError">#B00020</color> <!-- Rojo para errores -->
+    <color name="colorSuccess">#388E3C</color> <!-- Verde para éxito -->
+
+    <!-- Colores adicionales -->
+    <color name="primaryText">#000000</color> <!-- Texto primario (Negro) -->
+    <color name="secondaryText">#757575</color> <!-- Texto secundario (gris claro) -->
+    <color name="highlightColor">#FF4081</color><!-- Color de resaltado (rosa vibrante) -->
+
+    <!-- colors.xml -->
+    <color name="backgroundColorDark">#121212</color> <!-- Fondo muy oscuro -->
+    <color name="textColorLight">#E0E0E0</color> <!-- Texto claro para el fondo oscuro -->
+    <color name="buttonColorDark">#333333</color> <!-- Color de los botones oscuros -->
+    <color name="buttonTextColorDark">#FFFFFF</color> <!-- Texto blanco para los botones -->
+
+
+</resources>

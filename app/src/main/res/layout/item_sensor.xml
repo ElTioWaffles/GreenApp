@@ -1,0 +1,30 @@
+<!-- item_sensor.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/nombreSensorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nombre del Sensor"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/descripcionSensorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Descripción del Sensor"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/idealSensorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valor Ideal"
+        android:textSize="14sp"
+        android:textStyle="italic" />
+</LinearLayout>
+
