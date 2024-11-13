@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColorDark"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -19,7 +19,7 @@
         android:layout_margin="8dp"
         android:padding="16dp"
         android:textSize="18sp"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/textColorLight"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -31,8 +31,8 @@
         android:layout_margin="8dp"
         android:padding="16dp"
         android:text="@string/opc_sensores"
-        android:textColor="@color/buttonTextColor"
-        android:backgroundTint="@color/buttonColor"
+        android:textColor="@color/buttonTextColorDark"
+        android:backgroundTint="@color/buttonColorDark"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -44,8 +44,8 @@
         android:layout_margin="8dp"
         android:padding="16dp"
         android:text="@string/gestor_ubi"
-        android:textColor="@color/buttonTextColor"
-        android:backgroundTint="@color/buttonColor"
+        android:textColor="@color/buttonTextColorDark"
+        android:backgroundTint="@color/buttonColorDark"
         app:layout_constraintTop_toBottomOf="@+id/gestorButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -57,10 +57,11 @@
         android:layout_margin="8dp"
         android:padding="16dp"
         android:text="@string/registros"
-        android:textColor="@color/buttonTextColor"
-        android:backgroundTint="@color/buttonColor"
+        android:textColor="@color/buttonTextColorDark"
+        android:backgroundTint="@color/buttonColorDark"
         app:layout_constraintTop_toBottomOf="@+id/gestorUbiButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

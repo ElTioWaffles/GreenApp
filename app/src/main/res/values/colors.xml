@@ -34,5 +34,8 @@
     <color name="buttonColorDark">#333333</color> <!-- Color de los botones oscuros -->
     <color name="buttonTextColorDark">#FFFFFF</color> <!-- Texto blanco para los botones -->
 
+    <!-- colors.xml -->
+    <color name="inputBackgroundColorDark">#1E1E1E</color> <!-- Fondo oscuro para EditText y Spinners -->
+
 
 </resources>
