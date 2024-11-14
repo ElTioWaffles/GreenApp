@@ -69,7 +69,7 @@ public class gestor_ubi extends AppCompatActivity {
             Toast.makeText(this, "El nombre es obligatorio y debe tener entre 5 y 15 caracteres sin espacios", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (!TextUtils.isEmpty(descripcion) && descripcion.length() > 30) {
+        if (descripcion.length() > 30) {
             Toast.makeText(this, "La descripción no debe exceder los 30 caracteres", Toast.LENGTH_SHORT).show();
             return false;
         }
