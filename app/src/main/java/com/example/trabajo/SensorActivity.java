@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStructure;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -28,6 +29,7 @@ public class SensorActivity extends AppCompatActivity {
     private EditText nombreEditText, descripcionEditText, idealEditText;
     private ArrayAdapter<String> ubicacionAdapter, tipoAdapter;
     private FirebaseFirestore db;
+    AutoCompleteTextView sensoresAutoComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +41,17 @@ public class SensorActivity extends AppCompatActivity {
         // Inicialización de vistas
         spinnerTipoSensor = findViewById(R.id.SpinnerSensor);
         spinnerUbicacion = findViewById(R.id.UbiSensor);
-        nombreEditText = findViewById(R.id.sensores);
+       //nombreEditText = findViewById(R.id.sensores);
         descripcionEditText = findViewById(R.id.modeloSensorEditText);
         idealEditText = findViewById(R.id.campoIdealEditText);
         resultadoBusquedaTextView = findViewById(R.id.resultadoBusquedaTextView);
+        sensoresAutoComplete = findViewById(R.id.sensores);
+
 
 
         // Configuración de Spinners
         configurarSpinners();
+        cargarNombresSensores();
 
         // Configuración de botones
         Button verSensoresButton = findViewById(R.id.verSensoresButton);
@@ -263,6 +268,25 @@ public class SensorActivity extends AppCompatActivity {
                 });
     }
 
+    private void cargarNombresSensores() {
+        db.collection("sensores")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<String> nombresSensores = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        String nombre = document.getString("nombre");
+                        if (nombre != null) {
+                            nombresSensores.add(nombre);
+                        }
+                    }
+
+                    // Configura el adaptador de autocompletado
+                    ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                            this, android.R.layout.simple_dropdown_item_1line, nombresSensores);
+                    sensoresAutoComplete.setAdapter(adapter);
+                })
+                .addOnFailureListener(e -> Toast.makeText(this, "Error al cargar nombres de sensores", Toast.LENGTH_SHORT).show());
+    }
 
 
     private void mostrarSensorEnUI(Sensor sensor) {
