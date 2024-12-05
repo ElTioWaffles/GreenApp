@@ -29,7 +29,7 @@ public class SensorActivity extends AppCompatActivity {
     private EditText nombreEditText, descripcionEditText, idealEditText;
     private ArrayAdapter<String> ubicacionAdapter, tipoAdapter;
     private FirebaseFirestore db;
-    AutoCompleteTextView sensoresAutoComplete;
+    private AutoCompleteTextView sensoresAutoComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class SensorActivity extends AppCompatActivity {
         // Inicialización de vistas
         spinnerTipoSensor = findViewById(R.id.SpinnerSensor);
         spinnerUbicacion = findViewById(R.id.UbiSensor);
-       //nombreEditText = findViewById(R.id.sensores);
+        nombreEditText = findViewById(R.id.sensores);
         descripcionEditText = findViewById(R.id.modeloSensorEditText);
         idealEditText = findViewById(R.id.campoIdealEditText);
         resultadoBusquedaTextView = findViewById(R.id.resultadoBusquedaTextView);
@@ -332,4 +332,3 @@ public class SensorActivity extends AppCompatActivity {
         actualizarSpinnerUbicaciones();
     }
 }
-
